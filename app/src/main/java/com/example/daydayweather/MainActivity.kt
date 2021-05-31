@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.fragment.app.commit
-import com.example.daydayweather.view.MapsFragment
+import com.example.daydayweather.view.ViewPagerFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.commit {
-            replace(R.id.fragmentContainer, MapsFragment())
+            replace(R.id.fragmentContainer, ViewPagerFragment())
         }
 
     }

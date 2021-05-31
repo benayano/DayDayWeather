@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-//---------------------------------google-----------------------
 
     //----------------------------multidex for big project-----------------------------
     implementation "androidx.multidex:multidex:2.0.1"
