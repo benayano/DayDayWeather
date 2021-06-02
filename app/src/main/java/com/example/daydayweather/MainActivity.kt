@@ -16,11 +16,11 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.map_options,menu)
-        return true
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.map_options,menu)
+//        return true
+//    }
 }
 
 
