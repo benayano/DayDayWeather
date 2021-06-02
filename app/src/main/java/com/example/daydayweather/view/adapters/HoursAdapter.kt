@@ -28,7 +28,7 @@ class HoursAdapter : ListAdapter<ThreeHourData, HoursAdapter.ViewHolder>(HoursDi
         private val hourTime: TextView = itemView.findViewById(R.id.tvHour)
         private val hourDegrees: TextView = itemView.findViewById(R.id.tvDegrees)
         fun bind(threeHourData: ThreeHourData) {
-            hourTime.text = threeHourData.time.toString()
+            hourTime.text = threeHourData.time.toString()+":00"
             hourDegrees.text = "${"%.1f".format(threeHourData.degrees-273.3)}°"
             //hourImageView.setImageResource(R.drawable.ic_sunset)
 

@@ -9,6 +9,7 @@ import com.example.daydayweather.view.adapters.PagerAdapter
 import com.example.daydayweather.view.fragments.CurrentTimeFragment
 import com.example.daydayweather.view.fragments.DaysFragment
 import com.example.daydayweather.view.fragments.HoursFragment
+import com.example.daydayweather.view.fragments.LocationFragment
 import com.google.android.gms.maps.MapFragment
 import me.relex.circleindicator.CircleIndicator3
 
@@ -20,8 +21,8 @@ class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
         val fragmentList = arrayListOf<Fragment>(
             CurrentTimeFragment(),
             HoursFragment(),
-            DaysFragment()
-           // MapFragment()
+            DaysFragment(),
+            LocationFragment()
         )
 
         val adapterFragment = PagerAdapter(

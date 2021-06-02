@@ -29,7 +29,7 @@ class CurrentTimeFragment : Fragment(R.layout.fragment_current_day) {
 
 
         // viewModel.loadCurrentWeather(longitude = 35.2224,latitude= 31.9421)
-        viewModel.loadCurrentWeather("בית אל")
+       // viewModel.loadCurrentWeather("בית אל")
 
         viewModel.getCurrentWeather().observe(viewLifecycleOwner) {
             ivCurrentDay.setImageResource(R.drawable.ic_launcher_background)
