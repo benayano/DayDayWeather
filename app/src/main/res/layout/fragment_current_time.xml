@@ -7,12 +7,12 @@
     tools:context=".view.fragments.CurrentTimeFragment">
 
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCurrentDay"
         android:layout_width="330dp"
         android:layout_height="330dp"
         android:layout_marginTop="64dp"
-        android:src="@drawable/ic_aaa"
+        app:srcCompat="@drawable/ic_aaa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

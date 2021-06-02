@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
+import com.example.daydayweather.view.SetImages
 import com.example.daydayweather.viewModel.DayData
+import com.example.daydayweather.viewModel.MainViewModel
 
 class DaysAdapter : ListAdapter<DayData, DaysAdapter.ViewHolder>(DaysDiffUtil()) {
 
@@ -35,6 +37,7 @@ class DaysAdapter : ListAdapter<DayData, DaysAdapter.ViewHolder>(DaysDiffUtil())
             tvConditionDay.text  = dayData.condition
             tvHighDayDegrees.text  = "${ "%.0f".format(dayData.highDegrees) }°"
             tvLowDayDegrees.text  = "${ "%.0f".format(dayData.lowDegrees) }°"
+            ivMiddleDay.setImageResource(SetImages.getIcon(dayData.image))
 
         }
 

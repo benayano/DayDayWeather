@@ -7,5 +7,5 @@ data class DayData(
     val condition:String,
     val lowDegrees: Double,
     val highDegrees: Double,
-    val image:Int
+    val image:String
 )

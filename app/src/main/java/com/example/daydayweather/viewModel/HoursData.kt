@@ -12,6 +12,6 @@ data class ThreeHourData(
     val description: String,
     //this is base
     val time: Int,
-    val Image: Int,
+    val Image: String,
     val degrees: Double
 )

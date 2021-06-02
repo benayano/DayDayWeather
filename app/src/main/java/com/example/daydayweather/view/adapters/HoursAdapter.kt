@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
+import com.example.daydayweather.view.SetImages
 import com.example.daydayweather.viewModel.ThreeHourData
 
 class HoursAdapter : ListAdapter<ThreeHourData, HoursAdapter.ViewHolder>(HoursDiffUtil()) {
@@ -30,7 +31,7 @@ class HoursAdapter : ListAdapter<ThreeHourData, HoursAdapter.ViewHolder>(HoursDi
         fun bind(threeHourData: ThreeHourData) {
             hourTime.text = threeHourData.time.toString()+":00"
             hourDegrees.text = "${"%.1f".format(threeHourData.degrees-273.3)}°"
-            //hourImageView.setImageResource(R.drawable.ic_sunset)
+            hourImageView.setImageResource(SetImages.getIcon(threeHourData.Image))
 
         }
     }

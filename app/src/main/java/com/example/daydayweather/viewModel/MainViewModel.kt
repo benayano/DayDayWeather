@@ -58,7 +58,7 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
             currentTemperature = currentTimeResponse.main.temp - Companion.absoluteZero,
             maxTemperature = currentTimeResponse.main.temp_max - Companion.absoluteZero,
             minTemperature = currentTimeResponse.main.temp_min - Companion.absoluteZero,
-            Image = 4,
+            Image = currentTimeResponse.weather[0].icon,
             description = currentTimeResponse.weather[0].description
         )
     }
@@ -91,7 +91,7 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
                     TimeAndDat = threeHours.dt_txt,
                     description = threeHours.weather[0].description,
                     time = ((index * 3)+ thisHour)% 24,
-                    Image = 1,
+                    Image = threeHours.weather[0].icon,
                     degrees = threeHours.main.temp
                 )
             )
@@ -123,7 +123,7 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
                 condition = daily.weather[0].description,
                 lowDegrees = daily.temp.min - Companion.absoluteZero,
                 highDegrees = daily.temp.max - Companion.absoluteZero,
-                image = 5
+                image = daily.weather[0].icon
             )
             myDays.add(day)
         }
@@ -132,19 +132,5 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
 
     companion object {
         private const val absoluteZero: Double = 273.3
-        public fun getIcon(codeOfIcon:String):Int{
-            return when(codeOfIcon){
-                "01n"->(R.drawable.ic_delete_24)
-                "02n"->(R.drawable.ic_down)
-                "03n"->(R.drawable.ic_high)
-                "04n"->(R.drawable.ic_launcher_background)
-                "09n"->(R.drawable.ic_launcher_foreground)
-                "10n"->(R.drawable.ic_sunset)
-                "11n"->(R.drawable.ic_delete_24)
-                "13n"->(R.drawable.ic_delete_24)
-                "50n"->(R.drawable.ic_delete_24)
-                else->(R.drawable.ic_delete_24)
-            }
-        }
     }
 }
