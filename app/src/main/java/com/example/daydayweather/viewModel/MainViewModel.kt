@@ -1,22 +1,21 @@
 package com.example.daydayweather.viewModel
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.daydayweather.R
 import com.example.daydayweather.model.repository.WeatherRepository
-import com.example.daydayweather.model.response.CurrentTimeResponse
-import com.example.daydayweather.model.response.DaysResponse7
-import com.example.daydayweather.model.response.ThreeHoursResponse
+import com.example.daydayweather.model.repository.PlacesRepository
+import com.example.daydayweather.model.db.PlacesEntity
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.Calendar.DAY_OF_WEEK
-import java.util.Calendar.HOUR_OF_DAY
+import androidx.lifecycle.map
 
 
-class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
+class MainViewModel(
+    private val weatherRepository: WeatherRepository,
+    private val placesRepository: PlacesRepository
+) : ViewModel() {
 
     private val currentTime: MutableLiveData<CurrentTimeData> by lazy {
         MutableLiveData()
@@ -30,75 +29,47 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
         MutableLiveData()
     }
 
+    private val locations = placesRepository
+        .getAllPlaces()
+        .map { ListLocationsData(converter.entityListToLocationList(it)) }
+
+    private val converter = Converter()
+
     //--------------------------current Time ----------------------------------
     fun getCurrentWeather() = currentTime
 
     fun loadCurrentWeather(cityName: String) {
         viewModelScope.launch {
-            val currentResponse = repository.getCurrentWeatherByCity(cityName)
-            val currentData = convertCurrentResponseToData(currentResponse)
+            val currentResponse = weatherRepository.getCurrentWeatherByCity(cityName)
+            val currentData = converter.currentResponseToData(currentResponse)
             currentTime.postValue(currentData)
         }
     }
 
     fun loadCurrentWeather(longitude: Double, latitude: Double) {
         viewModelScope.launch {
-            val currentResponse = repository.getCurrentWeatherByCoordinates(
+            val currentResponse = weatherRepository.getCurrentWeatherByCoordinates(
                 locationLat = latitude,
                 locationLon = longitude
             )
-            val currentData = convertCurrentResponseToData(currentResponse)
+            val currentData = converter.currentResponseToData(currentResponse)
             currentTime.postValue(currentData)
         }
     }
 
-
-    private fun convertCurrentResponseToData(currentTimeResponse: CurrentTimeResponse): CurrentTimeData {
-        return CurrentTimeData(
-            currentTemperature = currentTimeResponse.main.temp - Companion.absoluteZero,
-            maxTemperature = currentTimeResponse.main.temp_max - Companion.absoluteZero,
-            minTemperature = currentTimeResponse.main.temp_min - Companion.absoluteZero,
-            Image = currentTimeResponse.weather[0].icon,
-            description = currentTimeResponse.weather[0].description
-        )
-    }
-
-
     //-----------------------------------Hours----------------------------
     fun getHours(): LiveData<List<ThreeHourData>> = hours
-    private val thisHour = Calendar.getInstance().get(HOUR_OF_DAY)
 
     fun loadHours(latitude: Double, longitude: Double) {
         viewModelScope.launch {
-            val currentResponse = repository.getHoursByCoordinates(
+            val currentResponse = weatherRepository.getHoursByCoordinates(
                 locationLat = latitude,
                 locationLon = longitude
             )
-            val listHoursData = convertToHoursData(currentResponse)
+            val listHoursData = converter.hoursResponseToData(currentResponse)
             hours.postValue(listHoursData)
         }
     }
-
-    private fun convertToHoursData(threeHoursResponse: ThreeHoursResponse): List<ThreeHourData> {
-        val hoursList: MutableList<ThreeHourData> = mutableListOf()
-        threeHoursResponse.listThreeHours.forEachIndexed { index, threeHours ->
-            hoursList.add(
-                ThreeHourData(
-                    pressure = threeHours.main.pressure,
-                    humidity = threeHours.main.humidity,//לחות
-                    windSpeed = threeHours.wind.speed,
-                    visibility = threeHours.visibility, //נראות
-                    TimeAndDat = threeHours.dt_txt,
-                    description = threeHours.weather[0].description,
-                    time = ((index * 3)+ thisHour)% 24,
-                    Image = threeHours.weather[0].icon,
-                    degrees = threeHours.main.temp
-                )
-            )
-        }
-        return hoursList
-    }
-
 
     //------------------------------------------Days--------------------------
     fun getDays(): LiveData<List<DayData>> = days
@@ -106,31 +77,30 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
     fun loadDays(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             val daysRepository =
-                repository.daysWeatherByCoordinates(locationLat = latitude, locationLon = longitude)
-            days.postValue(allDays(daysRepository))
+                weatherRepository.daysWeatherByCoordinates(
+                    locationLat = latitude,
+                    locationLon = longitude
+                )
+            days.postValue(converter.allDays(daysRepository))
         }
     }
 
-    private val thisDay = Calendar.getInstance().get(DAY_OF_WEEK)
-    private val dayOfTheWeek =
-        listOf<String>("ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת")
+    //--------------------------------places--------------------------------------------
+    //
+    fun getLocations(): LiveData<ListLocationsData> = locations
 
-    private fun allDays(daysResponse7: DaysResponse7): List<DayData> {
-        val myDays = mutableListOf<DayData>()
-        daysResponse7.daily.forEachIndexed { index, daily ->
-            val day = DayData(
-                name = dayOfTheWeek[(index - 1 + thisDay) % 7],
-                condition = daily.weather[0].description,
-                lowDegrees = daily.temp.min - Companion.absoluteZero,
-                highDegrees = daily.temp.max - Companion.absoluteZero,
-                image = daily.weather[0].icon
+    fun onAddingLocation(locationData: LocationData) {
+        viewModelScope.launch {
+            val placesEntity = PlacesEntity(
+                id = 3,
+                name = locationData.name,
+                country = "this not current!!!", //locationData.country,
+                longitude = 0.53333,  // longitude = locationData.longitude,
+                latitude = 0.777777  // latitude = locationData.latitude
             )
-            myDays.add(day)
+            placesRepository.addPlace(placesEntity)
         }
-        return myDays.toList()
     }
 
-    companion object {
-        private const val absoluteZero: Double = 273.3
-    }
+
 }

@@ -8,48 +8,57 @@ import retrofit2.http.Query
 
 interface BrowseApi {
 
+    companion object{
+        private const val TOKEN = "42cf5356b60bbd5f1ba1e55a0ec4e820"
+        private const val APIKEY = "appid"
+        private const val CITY_NAME = "q"
+        private const val LANGUAGE = "lang"
+        private const val LONGITUDE = "lon"
+        private const val LATITUDE = "lat"
+    }
+
     @GET("onecall")
     suspend fun getDays(
-        @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
+        @Query(LATITUDE) lat: Double,
+        @Query(LONGITUDE) lon: Double,
         @Query("exclude") exclude: String = "current,minutely,hourly,alerts",
-        @Query("appid") ApiKey: String,
-        @Query("lang") language: String ="he"
+        @Query(APIKEY) ApiKey: String = TOKEN,
+        @Query(LANGUAGE) language: String ="he"
     ): DaysResponse7
 
     //Hours
     // Call 5 day / 3 hour forecast data
     @GET("forecast")
     suspend fun getHoursByCityName(
-        @Query("city name") cityName: String,
-        @Query("API key") ApiKey: String,
-        @Query("lang") language: String ="he"
+        @Query(CITY_NAME) cityName: String,
+        @Query(APIKEY) ApiKey: String = TOKEN,
+        @Query(LANGUAGE) language: String ="he"
     ): ThreeHoursResponse
 
     @GET("forecast")
     suspend fun getHoursByCoordinates(
-        @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
-        @Query("appid") ApiKey: String,
-        @Query("lang") language: String ="he"
+        @Query(LATITUDE) lat: Double,
+        @Query(LONGITUDE) lon: Double,
+        @Query(APIKEY) ApiKey: String = TOKEN,
+        @Query(LANGUAGE) language: String ="he"
     ): ThreeHoursResponse
 
     //now time weather
-    ///{lat}&{lon}&{API key}
+
     @GET("weather")
     suspend fun getNowByCoordinates(
-        @Query("lon") lon: Double,
-        @Query("lat") lat: Double,
-        @Query("appid") ApiKey: String,
-        @Query("lang") language: String ="he"
+        @Query(LONGITUDE) lon: Double,
+        @Query(LATITUDE) lat: Double,
+        @Query(APIKEY) ApiKey: String = TOKEN,
+        @Query(LANGUAGE) language: String ="he"
     ): CurrentTimeResponse
 
     ///{city name}&{API key}suspend
     @GET("weather")
     suspend fun getCurrentByCityName(
-        @Query("q") cityName: String,
-        @Query("appid") ApiKey: String,
-        @Query("lang") language: String ="he"
+        @Query(CITY_NAME) cityName: String,
+        @Query(APIKEY) ApiKey: String = TOKEN,
+        @Query(LANGUAGE) language: String ="he"
     ): CurrentTimeResponse
 
 }

@@ -1,5 +1,6 @@
 package com.example.daydayweather.model.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -13,6 +14,6 @@ interface PlacesDAO {
     @Delete
     fun delete(placeEntity: PlacesEntity)
 
-    @Query("SELECT * FROM PlacesEntity")
-    fun getAllPlaces(): List<PlacesEntity>
+    @Query("SELECT * FROM placesEntity ")
+    fun getAllPlaces(): LiveData<List<PlacesEntity>>
 }

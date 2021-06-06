@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
+import com.example.daydayweather.model.db.RoomCreator
+import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
 import com.example.daydayweather.view.adapters.HoursAdapter
 import com.example.daydayweather.viewModel.MainViewModel
@@ -16,7 +18,10 @@ import com.example.daydayweather.viewModel.WeatherFactory
 class HoursFragment : Fragment(R.layout.fragment_hours) {
 
     private val viewModel: MainViewModel by viewModels {
-        WeatherFactory(WeatherRepository)
+        val placesDao = RoomCreator
+            .getDbPlaces(requireContext())
+            .getPlaceDao()
+        WeatherFactory(WeatherRepository, PlacesRepository(placesDao))
     }
 
     private val rvHours: RecyclerView by lazy { requireView().findViewById(R.id.rvHours) }
