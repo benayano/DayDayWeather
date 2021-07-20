@@ -5,11 +5,11 @@ import com.example.daydayweather.model.db.PlacesEntity
 
 class PlacesRepository(private val placesDAO: PlacesDAO) {
 
-    fun addPlace(placeEntity: PlacesEntity) = placesDAO.insert(placeEntity)
+  suspend  fun addPlace(placeEntity: PlacesEntity) = placesDAO.insert(placeEntity)
 
-    fun addPlaceOrUpdate(placeEntity: PlacesEntity) = placesDAO.insertOrUpdate(placeEntity)
+  suspend  fun addPlaceOrUpdate(placeEntity: PlacesEntity) = placesDAO.insertOrUpdate(placeEntity)
 
-    fun deletePlace(placeEntity: PlacesEntity) = placesDAO.delete(placeEntity)
+  suspend  fun deletePlace(placeEntity: PlacesEntity) = placesDAO.delete(placeEntity)
 
     fun getAllPlaces() = placesDAO.getAllPlaces()
 }

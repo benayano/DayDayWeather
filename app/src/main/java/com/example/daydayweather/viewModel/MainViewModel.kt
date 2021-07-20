@@ -1,15 +1,9 @@
 package com.example.daydayweather.viewModel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.daydayweather.model.repository.WeatherRepository
+import androidx.lifecycle.*
 import com.example.daydayweather.model.repository.PlacesRepository
-import com.example.daydayweather.model.db.PlacesEntity
+import com.example.daydayweather.model.repository.WeatherRepository
 import kotlinx.coroutines.launch
-import java.util.*
-import androidx.lifecycle.map
 
 
 class MainViewModel(
@@ -31,7 +25,7 @@ class MainViewModel(
 
     private val locations = placesRepository
         .getAllPlaces()
-        .map { ListLocationsData(converter.entityListToLocationList(it)) }
+        .map { converter.entityListToLocationList(it) }
 
     private val converter = Converter()
 
@@ -87,20 +81,20 @@ class MainViewModel(
 
     //--------------------------------places--------------------------------------------
     //
-    fun getLocations(): LiveData<ListLocationsData> = locations
+    fun getLocations(): LiveData<List<LocationData>> = locations
 
-    fun onAddingLocation(locationData: LocationData) {
+    fun addLocation(locationData: LocationData) =
         viewModelScope.launch {
-            val placesEntity = PlacesEntity(
-                id = 3,
-                name = locationData.name,
-                country = "this not current!!!", //locationData.country,
-                longitude = 0.53333,  // longitude = locationData.longitude,
-                latitude = 0.777777  // latitude = locationData.latitude
-            )
-            placesRepository.addPlace(placesEntity)
+            placesRepository.addPlace(converter.locationDataToPlaceEntity(locationData))
         }
-    }
 
+    fun replaceLocation(locationData: LocationData) =
+        viewModelScope.launch {
+            placesRepository.addPlaceOrUpdate(converter.locationDataToPlaceEntity(locationData))
+        }
 
+    fun deleteLocation(locationData: LocationData) =
+        viewModelScope.launch {
+            placesRepository.deletePlace(converter.locationDataToPlaceEntity(locationData))
+        }
 }

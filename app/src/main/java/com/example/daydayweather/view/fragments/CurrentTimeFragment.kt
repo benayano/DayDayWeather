@@ -1,16 +1,15 @@
 package com.example.daydayweather.view.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.daydayweather.model.repository.WeatherRepository
 import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
 import com.example.daydayweather.model.repository.PlacesRepository
+import com.example.daydayweather.model.repository.WeatherRepository
 import com.example.daydayweather.view.SetImages
 import com.example.daydayweather.viewModel.MainViewModel
 import com.example.daydayweather.viewModel.WeatherFactory

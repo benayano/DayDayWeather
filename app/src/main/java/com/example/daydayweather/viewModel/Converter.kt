@@ -91,6 +91,13 @@ class Converter {
             }
         }
     }
+   suspend fun locationDataToPlaceEntity(locationData: LocationData) = PlacesEntity(
+        null,
+        locationData.name,
+        locationData.country,
+        locationData.longitude,
+        locationData.latitude
+    )
 
 
     companion object {

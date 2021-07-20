@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
 import com.example.daydayweather.view.SetImages
 import com.example.daydayweather.viewModel.DayData
-import com.example.daydayweather.viewModel.MainViewModel
 
 class DaysAdapter : ListAdapter<DayData, DaysAdapter.ViewHolder>(DaysDiffUtil()) {
 
@@ -28,7 +27,7 @@ class DaysAdapter : ListAdapter<DayData, DaysAdapter.ViewHolder>(DaysDiffUtil())
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvNamOfDay: TextView = itemView.findViewById(R.id.tvNamOfDay)
         private val tvConditionDay: TextView = itemView.findViewById(R.id.tvConditionDay)
-        val ivMiddleDay: ImageView = itemView.findViewById(R.id.ivMiddleDay)
+        private val ivMiddleDay: ImageView = itemView.findViewById(R.id.ivMiddleDay)
         private val tvHighDayDegrees: TextView = itemView.findViewById(R.id.tvHighDayDegrees)
         private val tvLowDayDegrees: TextView = itemView.findViewById(R.id.tvLowDayDegrees)
 
