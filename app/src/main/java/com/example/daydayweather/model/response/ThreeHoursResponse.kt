@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ThreeHoursResponse(
-    val city: City,
+  //  val city: City,
   //  val cnt: Int,
 //   val message: Int,
     val cod: String,

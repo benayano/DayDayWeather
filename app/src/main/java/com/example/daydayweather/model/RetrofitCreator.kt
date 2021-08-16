@@ -1,7 +1,9 @@
 package com.example.daydayweather.model
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,6 +11,12 @@ import retrofit2.Retrofit
 
 object RetrofitCreator {
 
+    val json = Json {
+        ignoreUnknownKeys = true
+        encodeDefaults = true
+    }
+
+    @ExperimentalSerializationApi
     inline fun <reified T> getRetrofit(baseUrl: String = "https://api.openweathermap.org/data/2.5/"): T {
 
         val client = OkHttpClient.Builder().apply {
@@ -20,11 +28,7 @@ object RetrofitCreator {
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(
-                Json {
-                    ignoreUnknownKeys = true
-                    encodeDefaults = true
-                }
-                    .asConverterFactory("application/json".toMediaType())
+                json.asConverterFactory("application/json".toMediaType())
             )
             .baseUrl(baseUrl)
             .client(client)

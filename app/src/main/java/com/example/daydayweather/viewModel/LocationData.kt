@@ -5,7 +5,7 @@ data class ListLocationsData(
 )
 
 data class LocationData(
-    val sirialNumber: Int,
+    val sirialNumber: Int? = null,
     val name: String,
     val country: String,
     val longitude: Double,

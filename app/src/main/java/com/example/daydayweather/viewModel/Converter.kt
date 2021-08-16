@@ -79,7 +79,7 @@ class Converter {
         return entityList.mapNotNull { placesEntity ->
             placesEntity.takeIf { it.id != null }?.let {
                 LocationData(
-                    sirialNumber= it.id!!,
+                    sirialNumber = it.id!!,
                     name = it.name,
                     country = when (it.country) {
                         "PS" -> "IL"
@@ -91,12 +91,13 @@ class Converter {
             }
         }
     }
-   suspend fun locationDataToPlaceEntity(locationData: LocationData) = PlacesEntity(
-        null,
-        locationData.name,
-        locationData.country,
-        locationData.longitude,
-        locationData.latitude
+
+    suspend fun locationDataToPlaceEntity(locationData: LocationData) = PlacesEntity(
+        id = locationData.sirialNumber,
+        name = locationData.name,
+        country = locationData.country,
+        longitude = locationData.longitude,
+        latitude = locationData.latitude
     )
 
 

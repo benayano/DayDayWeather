@@ -10,7 +10,6 @@ import com.example.daydayweather.view.fragments.CurrentTimeFragment
 import com.example.daydayweather.view.fragments.DaysFragment
 import com.example.daydayweather.view.fragments.HoursFragment
 import com.example.daydayweather.view.fragments.LocationFragment
-import com.google.android.gms.maps.MapFragment
 import me.relex.circleindicator.CircleIndicator3
 
 

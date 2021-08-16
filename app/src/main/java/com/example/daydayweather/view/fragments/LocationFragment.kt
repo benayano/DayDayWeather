@@ -26,7 +26,9 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
             .getPlaceDao()
         WeatherFactory(WeatherRepository, PlacesRepository(placesDao))
     }
-    private val locationAdapter = LocationsAdapter()
+    private val locationAdapter by lazy { LocationsAdapter(
+        selectedLocation = this::selectedLocation,
+    deleteItem = this::deleteLocationItem) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,21 +45,29 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
         })
 
 
+
         addButton.setOnClickListener {
             if (editText.text.isNotEmpty()) {
-                val name=editText.text.toString()
-              //  viewModel.loadCurrentWeather(name)
+                val name = formatLocation(editText.text.toString())
+                //  viewModel.loadCurrentWeather(name)
                 viewModel.addLocation(
                     LocationData(
-                        sirialNumber = 800,
                         name = name,
-                        country = "Il",
-                        longitude = 0.5,
-                        latitude = 0.5
+                        country = "IL",
+                        longitude = 35.2099,
+                        latitude = 31.7550
                     )
                 )
+                editText.text.clear()
             }
         }
     }
+
+    private fun selectedLocation(locationData: LocationData) {}
+    private fun deleteLocationItem(locationData: LocationData) =
+        viewModel.deleteLocation(locationData)
+
+    private fun formatLocation(nameLocation: String) =
+        nameLocation.replace("\\s+".toRegex(), " ").trim { it.isWhitespace() }
 
 }

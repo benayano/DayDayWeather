@@ -3,15 +3,18 @@ package com.example.daydayweather.model.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-
 data class ThreeHours(
-    val clouds: Clouds,
-//    val dt: Int,
-    val dt_txt: String,
+    //    val dt: Int,
     val main: Main,
-    val pop: Int,
-    val sys: SysX,
-    val visibility: Int,
     val weather: List<Weather>,
-    val wind: Wind
+    val clouds: Clouds,
+    val wind: Wind,
+    val visibility: Int,
+//    val pop: Int,
+//    val sys: SysX,
+//    val pod: String,
+    val dt_txt: String
+
 )
+
+
