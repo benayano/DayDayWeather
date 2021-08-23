@@ -24,6 +24,13 @@ class Converter {
         }
     }
 
+    fun currentResponseToLocationData(currentTimeResponse: CurrentTimeResponse):LocationData=
+        LocationData(
+            name = currentTimeResponse.name,
+            country = loveIsrael(currentTimeResponse.sys.country),
+            latitude = currentTimeResponse.coord.lat,
+            longitude = currentTimeResponse.coord.lon
+        )
     fun currentResponseToData(currentTimeResponse: CurrentTimeResponse): CurrentTimeData {
         return CurrentTimeData(
             currentTemperature = currentTimeResponse.main.temp - absoluteZero,
@@ -81,15 +88,17 @@ class Converter {
                 LocationData(
                     sirialNumber = it.id!!,
                     name = it.name,
-                    country = when (it.country) {
-                        "PS" -> "IL"
-                        else -> it.country
-                    },
+                    country = loveIsrael(it.country),
                     longitude = it.longitude,
                     latitude = it.latitude
                 )
             }
         }
+    }
+
+    private fun loveIsrael(countryName: String) = when (countryName) {
+        "PS" -> "IL"
+        else -> countryName
     }
 
     suspend fun locationDataToPlaceEntity(locationData: LocationData) = PlacesEntity(

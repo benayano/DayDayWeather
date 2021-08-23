@@ -6,16 +6,15 @@ import kotlinx.serialization.Serializable
 data class CurrentTimeResponse(
     // val id:Int,
     //  val base: String,
-    val clouds: Clouds,
-    val cod: Int,
-    //   val coord: Coord,
+    val clouds: Clouds = Clouds(0),
+    val cod: Int = -1,
+    val coord: Coord = Coord(),
     //   val dt: Int,
-    //  val id: Int,
     val main: Main,
-    val name: String,
-    val sys: Sys,
+    val name: String = "ירושלים default place",
+    val sys: Sys= Sys(),
     //val timezone: Int,
-    val visibility: Int,
-    val weather: List<Weather>,
-    val wind: Wind
+    val visibility: Int = -1,
+    val weather: List<Weather> = listOf<Weather>(),
+    val wind: Wind=Wind()
 )

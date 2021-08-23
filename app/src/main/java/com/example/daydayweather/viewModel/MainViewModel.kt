@@ -1,7 +1,5 @@
 package com.example.daydayweather.viewModel
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
@@ -90,6 +88,15 @@ class MainViewModel(
             placesRepository.addPlace(converter.locationDataToPlaceEntity(locationData))
         }
 
+    fun addLocation(locationName: String) =
+        viewModelScope.launch {
+            val forecast = weatherRepository.getCurrentWeatherByCity(locationName)
+            if (forecast.cod == 200) {
+                placesRepository.addPlace(converter.locationDataToPlaceEntity(converter.currentResponseToLocationData(forecast)))
+            }
+        }
+
+
     fun replaceLocation(locationData: LocationData) =
         viewModelScope.launch {
             placesRepository.addPlaceOrUpdate(converter.locationDataToPlaceEntity(locationData))
@@ -99,4 +106,7 @@ class MainViewModel(
         viewModelScope.launch {
             placesRepository.deletePlace(converter.locationDataToPlaceEntity(locationData))
         }
+
+    suspend fun nameIsFound(name: String) =
+        weatherRepository.getCurrentWeatherByCity(name).cod == 200
 }
