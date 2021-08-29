@@ -3,6 +3,7 @@ package com.example.daydayweather.view.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import com.example.daydayweather.viewModel.MainViewModel
 import com.example.daydayweather.viewModel.WeatherFactory
 
 class DaysFragment : Fragment(R.layout.fragment_days) {
-    private val mainViewModel: MainViewModel by viewModels{
+    private val mainViewModel: MainViewModel by activityViewModels{
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()
@@ -34,11 +35,11 @@ class DaysFragment : Fragment(R.layout.fragment_days) {
             }
         }
 
-        mainViewModel.loadDays(longitude = 35.2224,latitude= 31.9421)
-        mainViewModel.getDays().observe(viewLifecycleOwner,{
+
+        mainViewModel.days.observe(viewLifecycleOwner,{
             daysAdapter.submitList(it)
         })
-
+        mainViewModel.loadDays(longitude = 35.2224,latitude= 31.9421)
 
     }
     

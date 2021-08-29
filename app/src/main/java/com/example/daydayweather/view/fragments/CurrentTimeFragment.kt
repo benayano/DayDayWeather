@@ -5,18 +5,23 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
+import com.example.daydayweather.model.response.Coord
 import com.example.daydayweather.view.SetImages
 import com.example.daydayweather.viewModel.MainViewModel
 import com.example.daydayweather.viewModel.WeatherFactory
 
 class CurrentTimeFragment : Fragment(R.layout.fragment_current_time) {
+    companion object{
+        var coordd = Coord()
+    }
 
-    val viewModel: MainViewModel by viewModels {
+    val viewModel: MainViewModel by activityViewModels {
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()
@@ -37,9 +42,10 @@ class CurrentTimeFragment : Fragment(R.layout.fragment_current_time) {
         // viewModel.loadCurrentWeather(longitude = 35.2224,latitude= 31.9421)
        // viewModel.loadCurrentWeather("בית אל")
 
-        viewModel.getCurrentWeather().observe(viewLifecycleOwner) {
+
+        viewModel.currentTime.observe(viewLifecycleOwner) {
             ivCurrentDay.setImageResource(SetImages.getIcon(it.Image))
-            tvCurrentDegrees.text = "${ "%.1f".format(it.currentTemperature) }°"
+            tvCurrentDegrees.text = "${"%.1f".format(it.currentTemperature)}°"
             tvHighDegrees.text = "${"%.0f".format(it.maxTemperature)}°"
             tvLowDegrees.text = "${"%.0f".format(it.minTemperature)}°"
             tvDescription.text = "${it.description}"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">météo journalière</string>
+    <string name="add">ajouter</string>
+    <string name="please_add_a_place">veuillez entrer un lieu </string>
+    <string name="Humidity">humidité</string>
+    <string name="Pressure">Pression</string>
+    <string name="Cloudy">nuageux</string>
+    <string name="language">language</string>
+    <string name="windSpeed">Wind Speed</string>
+    <string name="visibility">visibility</string>
+    <string name="TimeAndDat">Date</string>
+    <string name="description">Description</string>
+    <string name="time">Time</string>
+</resources>

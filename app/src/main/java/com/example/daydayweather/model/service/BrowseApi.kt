@@ -15,7 +15,11 @@ interface BrowseApi {
         private const val LANGUAGE = "lang"
         private const val LONGITUDE = "lon"
         private const val LATITUDE = "lat"
+
+        val  languageOfDevice : String = "he"
     }
+
+
 
     @GET("onecall")
     suspend fun getDays(
@@ -23,7 +27,7 @@ interface BrowseApi {
         @Query(LONGITUDE) lon: Double,
         @Query("exclude") exclude: String = "current,minutely,hourly,alerts",
         @Query(APIKEY) ApiKey: String = TOKEN,
-        @Query(LANGUAGE) language: String ="he"
+        @Query(LANGUAGE) language: String =languageOfDevice
     ): DaysResponse7
 
     //Hours
@@ -32,7 +36,7 @@ interface BrowseApi {
     suspend fun getHoursByCityName(
         @Query(CITY_NAME) cityName: String,
         @Query(APIKEY) ApiKey: String = TOKEN,
-        @Query(LANGUAGE) language: String ="he"
+        @Query(LANGUAGE) language: String = languageOfDevice
     ): ThreeHoursResponse
 
     @GET("forecast")
@@ -40,7 +44,7 @@ interface BrowseApi {
         @Query(LATITUDE) lat: Double,
         @Query(LONGITUDE) lon: Double,
         @Query(APIKEY) ApiKey: String = TOKEN,
-        @Query(LANGUAGE) language: String ="he"
+        @Query(LANGUAGE) language: String =languageOfDevice
     ): ThreeHoursResponse
 
     //now time weather
@@ -50,7 +54,7 @@ interface BrowseApi {
         @Query(LONGITUDE) lon: Double,
         @Query(LATITUDE) lat: Double,
         @Query(APIKEY) ApiKey: String = TOKEN,
-        @Query(LANGUAGE) language: String ="he"
+        @Query(LANGUAGE) language: String =languageOfDevice
     ): CurrentTimeResponse
 
     ///{city name}&{API key}suspend
@@ -58,7 +62,7 @@ interface BrowseApi {
     suspend fun getCurrentByCityName(
         @Query(CITY_NAME) cityName: String,
         @Query(APIKEY) ApiKey: String = TOKEN,
-        @Query(LANGUAGE) language: String ="he"
+        @Query(LANGUAGE) language: String =languageOfDevice
     ): CurrentTimeResponse
 
 }

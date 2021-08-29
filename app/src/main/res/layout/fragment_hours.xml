@@ -3,60 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
     tools:context=".view.fragments.HoursFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/clHours"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/rvHours"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tvHumidity,tvBarometricPressure,tvCloudy,windSpeed,visibility,TimeAndDat,description,time"
+        app:flow_maxElementsWrap="3"
+        app:flow_wrapMode="chain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvHumidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="humidity"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/clHours"
-            app:layout_constraintTop_toTopOf="@id/clHours" />
+    <include layout="@layout/climate_description" />
 
-        <TextView
-            android:id="@+id/tvBarometricPressure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="Pressure"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@id/tvHumidity"
-            app:layout_constraintStart_toStartOf="@id/tvHumidity"
-            app:layout_constraintTop_toBottomOf="@+id/tvHumidity" />
-
-        <TextView
-            android:id="@+id/tvCloudy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="Cloudy"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@id/tvHumidity"
-            app:layout_constraintStart_toStartOf="@id/tvHumidity"
-            app:layout_constraintTop_toBottomOf="@+id/tvBarometricPressure" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHours"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="0dp"
         android:background="#C11515"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clHours" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

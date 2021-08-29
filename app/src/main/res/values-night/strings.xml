@@ -1,6 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Day Day Weather</string>
-    <string name="add">Add</string>
     <string name="please_add_a_place">please add a place</string>
     <string name="Humidity">humidity</string>
     <string name="Pressure">Pressure</string>

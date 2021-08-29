@@ -3,6 +3,7 @@ package com.example.daydayweather.view.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,7 @@ import com.example.daydayweather.viewModel.WeatherFactory
 
 class HoursFragment : Fragment(R.layout.fragment_hours) {
 
-    private val viewModel: MainViewModel by viewModels {
+    private val viewModel: MainViewModel by activityViewModels {
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()

@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
+import com.example.daydayweather.model.response.Coord
 import com.example.daydayweather.view.adapters.LocationsAdapter
 import com.example.daydayweather.viewModel.LocationData
 import com.example.daydayweather.viewModel.MainViewModel
@@ -20,7 +23,7 @@ import com.example.daydayweather.viewModel.WeatherFactory
 
 class LocationFragment : Fragment(R.layout.fragment_location) {
 
-    private val viewModel by viewModels<MainViewModel> {
+    private val viewModel by activityViewModels<MainViewModel> {
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()
@@ -58,7 +61,9 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
     }
 
     private fun selectedLocation(locationData: LocationData) {
-        viewModel.loadCurrentWeather(
+        Toast.makeText(requireContext()," ${locationData.name} is selected",Toast.LENGTH_SHORT).show()
+        CurrentTimeFragment.coordd=Coord(lon = locationData.longitude, lat = locationData.latitude)
+        viewModel.updateAllForecast(
             longitude = locationData.longitude,
             latitude = locationData.latitude
         )
