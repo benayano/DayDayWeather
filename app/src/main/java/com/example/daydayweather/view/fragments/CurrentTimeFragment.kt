@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
 import com.example.daydayweather.model.repository.PlacesRepository
@@ -17,7 +16,7 @@ import com.example.daydayweather.viewModel.MainViewModel
 import com.example.daydayweather.viewModel.WeatherFactory
 
 class CurrentTimeFragment : Fragment(R.layout.fragment_current_time) {
-    companion object{
+    companion object {
         var coordd = Coord()
     }
 
@@ -36,12 +35,6 @@ class CurrentTimeFragment : Fragment(R.layout.fragment_current_time) {
         val tvHighDegrees: TextView = view.findViewById(R.id.tvHighDegrees)
         val tvLowDegrees: TextView = view.findViewById(R.id.tvLowDegrees)
         val tvDescription: TextView = view.findViewById(R.id.tvDescription)
-
-
-
-        // viewModel.loadCurrentWeather(longitude = 35.2224,latitude= 31.9421)
-       // viewModel.loadCurrentWeather("בית אל")
-
 
         viewModel.currentTime.observe(viewLifecycleOwner) {
             ivCurrentDay.setImageResource(SetImages.getIcon(it.Image))

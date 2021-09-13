@@ -1,8 +1,8 @@
 package com.example.daydayweather
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import com.example.daydayweather.view.ViewPagerFragment
 
@@ -11,6 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolBar= findViewById<Toolbar>(R.id.tbMainFragment)
+        setSupportActionBar(toolBar)
         supportFragmentManager.commit {
             replace(R.id.fragmentContainer, ViewPagerFragment())
         }

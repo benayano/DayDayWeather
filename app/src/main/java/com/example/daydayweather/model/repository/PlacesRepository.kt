@@ -2,6 +2,7 @@ package com.example.daydayweather.model.repository
 
 import com.example.daydayweather.model.db.PlacesDAO
 import com.example.daydayweather.model.db.PlacesEntity
+import com.example.daydayweather.model.response.Coord
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -17,4 +18,6 @@ class PlacesRepository(private val placesDAO: PlacesDAO) {
         withContext(Dispatchers.IO) { placesDAO.delete(placeEntity) }
 
     fun getAllPlaces() = placesDAO.getAllPlaces()
+
+
 }

@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
@@ -61,12 +61,17 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
     }
 
     private fun selectedLocation(locationData: LocationData) {
-        Toast.makeText(requireContext()," ${locationData.name} is selected",Toast.LENGTH_SHORT).show()
-        CurrentTimeFragment.coordd=Coord(lon = locationData.longitude, lat = locationData.latitude)
+        selectedName(locationData.name)
         viewModel.updateAllForecast(
             longitude = locationData.longitude,
             latitude = locationData.latitude
         )
+    }
+
+    private fun selectedName(selectedName:String){
+        Toast.makeText(requireContext()," $selectedName is selected",Toast.LENGTH_SHORT).show()
+
+        (activity as AppCompatActivity).supportActionBar?.title=selectedName
     }
 
     private fun deleteLocationItem(locationData: LocationData) =
