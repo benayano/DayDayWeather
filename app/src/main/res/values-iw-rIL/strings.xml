@@ -3,13 +3,13 @@
     <string name="app_name">יום יום 😉</string>
     <string name="add">הוסף</string>
     <string name="please_add_a_place">בבקשה הוסף מקום</string>
-    <string name="Humidity">לחות</string>
-    <string name="Pressure">לחץ</string>
-    <string name="Cloudy">מעונן</string>
+    <string name="Humidity">לחות:</string>
+    <string name="Pressure">לחץ:</string>
+    <string name="Cloudy">מעונן:</string>
     <string name="language">שפה</string>
-    <string name="windSpeed">מהירות הרוח</string>
-    <string name="visibility">ראות</string>
-    <string name="TimeAndDat">תאריך</string>
+    <string name="windSpeed">קמ"ש הרוח:</string>
+    <string name="visibility">ראות:</string>
+    <string name="TimeAndDat">בתאריך:</string>
     <string name="description">תיאור</string>
-    <string name="time">זמן</string>
+    <string name="time">שעה:</string>
 </resources>

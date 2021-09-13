@@ -52,11 +52,12 @@ class Converter {
                     humidity = threeHours.main.humidity,//לחות
                     windSpeed = threeHours.wind.speed,
                     visibility = threeHours.visibility, //נראות
-                    TimeAndDat = threeHours.dt_txt,
+                    timeAndDate = threeHours.dt_txt,
                     description = threeHours.weather[0].description,
                     time = ((index * 3) + thisHour) % 24,
                     Image = threeHours.weather[0].icon,
                     degrees = threeHours.main.temp
+
                 )
             )
         }

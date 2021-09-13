@@ -10,7 +10,7 @@
         android:id="@+id/clHours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="tvHumidity,tvBarometricPressure,tvCloudy,windSpeed,visibility,TimeAndDat,description,time"
+        app:constraint_referenced_ids="tvHumidity,tvBarometricPressure,tvCloudy,windSpeed,visibility,TimeAndDate,description,time"
         app:flow_maxElementsWrap="3"
         app:flow_wrapMode="chain"
         app:layout_constraintEnd_toEndOf="parent"

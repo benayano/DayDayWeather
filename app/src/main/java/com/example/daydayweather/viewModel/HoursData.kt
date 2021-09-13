@@ -8,10 +8,13 @@ data class ThreeHourData(
     val humidity:Int,//לחות
     val windSpeed: Double,
     val visibility:Int, //נראות
-    val TimeAndDat:String,
+    val timeAndDate:String,
     val description: String,
     //this is base
     val time: Int,
     val Image: String,
-    val degrees: Double
+    val degrees: Double,
+    val cloudy: Int=99999
 )
+
+
