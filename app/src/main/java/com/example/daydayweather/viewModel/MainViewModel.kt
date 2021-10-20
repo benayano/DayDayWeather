@@ -79,7 +79,7 @@ class MainViewModel(
                 locationLat = latitude,
                 locationLon = longitude
             )
-            val listHoursData = converter.hoursResponseToData(currentResponse)
+            val listHoursData = converter.getHoursResponseToData(currentResponse)
             hours.postValue(listHoursData)
 
         }
@@ -133,8 +133,8 @@ class MainViewModel(
             loadDays(longitude = longitude,latitude = latitude)
             loadHours(longitude = longitude,latitude = latitude)
         }
-
     }
+   // fun saveLastLocation(locationData: LocationData)=
 
 
 }

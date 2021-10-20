@@ -41,7 +41,7 @@ class Converter {
         )
     }
 
-    fun hoursResponseToData(threeHoursResponse: ThreeHoursResponse): List<ThreeHourData> {
+    fun getHoursResponseToData(threeHoursResponse: ThreeHoursResponse): List<ThreeHourData> {
         val hoursList: MutableList<ThreeHourData> = mutableListOf()
         val thisHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
