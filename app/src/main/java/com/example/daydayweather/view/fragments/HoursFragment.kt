@@ -6,10 +6,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
+import com.example.daydayweather.model.repository.LastCityChose
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
 import com.example.daydayweather.view.adapters.HoursAdapter
@@ -23,7 +25,10 @@ class HoursFragment : Fragment(R.layout.fragment_hours) {
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()
-        WeatherFactory(WeatherRepository, PlacesRepository(placesDao))
+        val lastCityChose =
+            LastCityChose(PreferenceManager.getDefaultSharedPreferences(this.requireContext()))
+
+        WeatherFactory(WeatherRepository, PlacesRepository(placesDao), lastCityChose)
     }
 
 
@@ -39,8 +44,6 @@ class HoursFragment : Fragment(R.layout.fragment_hours) {
             }
         }
 
-
-        viewModel.loadHours(longitude = 35.2224, latitude = 31.9421)
         viewModel.getHours().observe(
             viewLifecycleOwner, Observer {
                 hoursAdapter.submitList(it)

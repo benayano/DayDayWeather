@@ -14,7 +14,7 @@ class LastCityChose(private val sharedPreferences: SharedPreferences) {
         private const val LATITUDE = "latitude"
     }
 
-    fun saveLocationData(
+    private fun convertAndSaveLocationData(
         name: String,
         country: String,
         longitude: Double,
@@ -29,8 +29,14 @@ class LastCityChose(private val sharedPreferences: SharedPreferences) {
         }
     }
 
+     fun saveLastLocationData(locationData: LocationData) = convertAndSaveLocationData(
+        name = locationData.name,
+        country = locationData.country,
+        longitude = locationData.longitude,
+        latitude = locationData.latitude
+    )
 
-    fun loadLocationData() = LocationData(
+     fun loadLastCity() = LocationData(
         name = sharedPreferences.getString(CITY_NAME, "ירושלים")!!,
         country = sharedPreferences.getString(COUNTRY, "IL")!!,
         longitude = sharedPreferences.getFloat(LONGITUDE, 31.778242F).toDouble(),

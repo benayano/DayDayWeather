@@ -1,6 +1,7 @@
 package com.example.daydayweather.viewModel
 
 import androidx.lifecycle.*
+import com.example.daydayweather.model.repository.LastCityChose
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
 import com.example.daydayweather.model.response.Coord
@@ -9,21 +10,22 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val weatherRepository: WeatherRepository,
-    private val placesRepository: PlacesRepository
+    private val placesRepository: PlacesRepository,
+    private val lastCityChose: LastCityChose
 ) : ViewModel() {
 
-    val myCoord=Coord()
 
-     val currentTime: MutableLiveData<CurrentTimeData> by lazy {
+    private val lastCity = MutableLiveData<LocationData>()
+
+    val currentTime: MutableLiveData<CurrentTimeData> by lazy {
         MutableLiveData()
     }
-
 
     private val hours: MutableLiveData<List<ThreeHourData>> by lazy {
         MutableLiveData()
     }
 
-     val days: MutableLiveData<List<DayData>> by lazy {
+    val days: MutableLiveData<List<DayData>> by lazy {
         MutableLiveData()
     }
 
@@ -32,11 +34,7 @@ class MainViewModel(
         .map { converter.entityListToLocationList(it) }
 
     private val converter = Converter()
-    //-----------------------------Coord------------------------------------
-//    fun loadCoord(longitude: Double, latitude: Double){
-//        val coord=Coord(longitude,latitude)
-//        myCoord.value=coord
-//    }
+
     //--------------------------current Time ----------------------------------
     fun getCurrentWeather() = currentTime
 
@@ -55,25 +53,29 @@ class MainViewModel(
                 locationLon = coord.lat
             )
             val currentData = converter.currentResponseToData(currentResponse)
-            currentTime.value=currentData
+            currentTime.value = currentData
         }
     }
 
-     fun loadCurrentWeather(longitude: Double, latitude: Double) {
+    private fun loadCurrentWeather(locationData: LocationData) {
+        val longitude: Double = locationData.longitude
+        val latitude: Double = locationData.latitude
         viewModelScope.launch {
             val currentResponse = weatherRepository.getCurrentWeatherByCoordinates(
                 locationLat = latitude,
                 locationLon = longitude
             )
             val currentData = converter.currentResponseToData(currentResponse)
-            currentTime.value=currentData
+            currentTime.value = currentData
         }
     }
 
     //-----------------------------------Hours----------------------------
     fun getHours(): LiveData<List<ThreeHourData>> = hours
 
-    fun loadHours(latitude: Double, longitude: Double) {
+    private fun loadHours(locationData:LocationData) {
+        val longitude: Double = locationData.longitude
+        val latitude: Double = locationData.latitude
         viewModelScope.launch {
             val currentResponse = weatherRepository.getHoursByCoordinates(
                 locationLat = latitude,
@@ -88,7 +90,9 @@ class MainViewModel(
     //------------------------------------------Days--------------------------
     fun getDays(): LiveData<List<DayData>> = days
 
-    fun loadDays(latitude: Double, longitude: Double) {
+    fun loadDays(locationData: LocationData) {
+        val longitude: Double = locationData.longitude
+        val latitude: Double = locationData.latitude
         viewModelScope.launch {
             val daysRepository =
                 weatherRepository.daysWeatherByCoordinates(
@@ -112,7 +116,13 @@ class MainViewModel(
         viewModelScope.launch {
             val forecast = weatherRepository.getCurrentWeatherByCity(locationName)
             if (forecast.cod == 200) {
-                placesRepository.addPlace(converter.locationDataToPlaceEntity(converter.currentResponseToLocationData(forecast)))
+                placesRepository.addPlace(
+                    converter.locationDataToPlaceEntity(
+                        converter.currentResponseToLocationData(
+                            forecast
+                        )
+                    )
+                )
             }
         }
 
@@ -127,14 +137,28 @@ class MainViewModel(
             placesRepository.deletePlace(converter.locationDataToPlaceEntity(locationData))
         }
 
-    fun updateAllForecast(longitude:Double,latitude:Double){
+    fun updateAllForecast(locationData: LocationData) {
+
         viewModelScope.launch {
-            loadCurrentWeather(longitude = longitude,latitude = latitude)
-            loadDays(longitude = longitude,latitude = latitude)
-            loadHours(longitude = longitude,latitude = latitude)
+            loadCurrentWeather(locationData)
+            loadDays(locationData)
+            loadHours(locationData)
         }
     }
-   // fun saveLastLocation(locationData: LocationData)=
+
+    //------------------------------locationData----------------------------------------
+    fun getLastCity() = lastCity
+    fun loadLastCity() {
+        viewModelScope.launch {
+            lastCity.postValue(lastCityChose.loadLastCity())
+        }
+    }
+
+    fun saveLastCity(locationData: LocationData) {
+        viewModelScope.launch {
+            lastCityChose.saveLastLocationData(locationData)
+        }
+    }
 
 
 }

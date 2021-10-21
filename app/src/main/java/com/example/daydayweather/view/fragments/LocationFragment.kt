@@ -8,13 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
+import com.example.daydayweather.model.repository.LastCityChose
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
-import com.example.daydayweather.model.response.Coord
 import com.example.daydayweather.view.adapters.LocationsAdapter
 import com.example.daydayweather.viewModel.LocationData
 import com.example.daydayweather.viewModel.MainViewModel
@@ -27,8 +28,12 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()
-        WeatherFactory(WeatherRepository, PlacesRepository(placesDao))
+        val lastCityChose =
+            LastCityChose(PreferenceManager.getDefaultSharedPreferences(this.requireContext()))
+
+        WeatherFactory(WeatherRepository, PlacesRepository(placesDao), lastCityChose)
     }
+
     private val locationAdapter by lazy {
         LocationsAdapter(
             selectedLocation = this::selectedLocation,
@@ -53,7 +58,6 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
         addButton.setOnClickListener {
             if (editText.text.isNotEmpty()) {
                 val name = formatLocation(editText.text.toString())
-                //  viewModel.loadCurrentWeather(name)
                 viewModel.addLocation(name)
                 editText.text.clear()
             }
@@ -61,17 +65,12 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
     }
 
     private fun selectedLocation(locationData: LocationData) {
-        selectedName(locationData.name)
-        viewModel.updateAllForecast(
-            longitude = locationData.longitude,
-            latitude = locationData.latitude
-        )
-    }
+        val selectedName =locationData.name
 
-    private fun selectedName(selectedName:String){
-        Toast.makeText(requireContext()," $selectedName is selected",Toast.LENGTH_SHORT).show()
-
-        (activity as AppCompatActivity).supportActionBar?.title=selectedName
+        viewModel.saveLastCity(locationData)
+        viewModel.updateAllForecast(locationData)
+        Toast.makeText(requireContext(), " $selectedName is selected", Toast.LENGTH_SHORT).show()
+        (activity as AppCompatActivity).supportActionBar?.title = selectedName
     }
 
     private fun deleteLocationItem(locationData: LocationData) =

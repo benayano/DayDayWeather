@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daydayweather.R
 import com.example.daydayweather.model.db.RoomCreator
+import com.example.daydayweather.model.repository.LastCityChose
 import com.example.daydayweather.model.repository.PlacesRepository
 import com.example.daydayweather.model.repository.WeatherRepository
 import com.example.daydayweather.view.adapters.DaysAdapter
@@ -16,14 +17,19 @@ import com.example.daydayweather.viewModel.MainViewModel
 import com.example.daydayweather.viewModel.WeatherFactory
 
 class DaysFragment : Fragment(R.layout.fragment_days) {
-    private val mainViewModel: MainViewModel by activityViewModels{
+
+
+    private val mainViewModel: MainViewModel by activityViewModels {
         val placesDao = RoomCreator
             .getDbPlaces(requireContext())
             .getPlaceDao()
-        WeatherFactory(WeatherRepository, PlacesRepository(placesDao))
+        val lastCityChose =
+            LastCityChose(PreferenceManager.getDefaultSharedPreferences(this.requireContext()))
+
+        WeatherFactory(WeatherRepository, PlacesRepository(placesDao), lastCityChose)
     }
 
-    private val rvDays :RecyclerView by lazy { requireView().findViewById(R.id.rvDays) }
+    private val rvDays: RecyclerView by lazy { requireView().findViewById(R.id.rvDays) }
     private val daysAdapter: DaysAdapter by lazy { DaysAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,16 +37,20 @@ class DaysFragment : Fragment(R.layout.fragment_days) {
 
         rvDays.apply {
             adapter = daysAdapter.apply {
-                layoutManager =LinearLayoutManager(requireContext())
+                layoutManager = LinearLayoutManager(requireContext())
             }
         }
 
 
-        mainViewModel.days.observe(viewLifecycleOwner,{
+        mainViewModel.days.observe(viewLifecycleOwner, {
             daysAdapter.submitList(it)
         })
-        mainViewModel.loadDays(longitude = 35.2224,latitude= 31.9421)
+
+        mainViewModel.getLastCity().observe(viewLifecycleOwner, {
+            mainViewModel.loadDays(it)
+
+        })
 
     }
-    
+
 }
