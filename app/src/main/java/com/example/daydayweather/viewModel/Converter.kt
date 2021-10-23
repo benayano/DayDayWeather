@@ -9,21 +9,6 @@ import java.util.*
 
 class Converter {
 
-    fun getIcon(codeOfIcon: String): Int {
-        return when (codeOfIcon) {
-            "01n" -> (R.drawable.ic_sun_fill)//clear sky
-            "02n" -> (R.drawable.ic_sun_cloudy)//few clouds
-            "03n" -> (R.drawable.ic_cloud_line)//scattered clouds
-            "04n" -> (R.drawable.ic_rainy_line)//broken clouds
-            "09n" -> (R.drawable.ic_broken_clouds)//rain
-            "10n" -> (R.drawable.ic_shower_rain)//shower rain
-            "11n" -> (R.drawable.ic_thunderstorms_line)//thunderstorm
-            "13n" -> (R.drawable.ic_snowy_line)//snow
-            "50n" -> (R.drawable.ic_mist_fill)//mist
-            else -> (R.drawable.ic_moon_clear_line)
-        }
-    }
-
     fun currentResponseToLocationData(currentTimeResponse: CurrentTimeResponse):LocationData=
         LocationData(
             name = currentTimeResponse.name,

@@ -20,21 +20,4 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment(R.layout.fragment_maps) {
 
-    private val callback = OnMapReadyCallback { googleMap ->
-
-        val Yitzhar = LatLng(
-            32.1686,
-            35.2337
-        )
-        googleMap.addMarker(MarkerOptions().position(Yitzhar).title("Marker in Yitzhar"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(Yitzhar))
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-
-    }
 }
