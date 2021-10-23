@@ -1,17 +1,16 @@
 package com.example.daydayweather.model.repository
 
+import com.example.daydayweather.model.RetrofitCreator
 import com.example.daydayweather.model.response.CurrentTimeResponse
 import com.example.daydayweather.model.response.DaysResponse7
 import com.example.daydayweather.model.response.ThreeHoursResponse
 import com.example.daydayweather.model.service.BrowseApi
-import com.example.daydayweather.model.RetrofitCreator
 
 object WeatherRepository {
 
     private val browseApi: BrowseApi by lazy {
         RetrofitCreator.getRetrofit()
     }
-
 
     suspend fun daysWeatherByCoordinates(
         locationLat: Double,

@@ -16,7 +16,7 @@ interface BrowseApi {
         private const val LONGITUDE = "lon"
         private const val LATITUDE = "lat"
 
-        val  languageOfDevice : String = "he"
+        const val  languageOfDevice : String = "he"
     }
 
 

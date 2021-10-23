@@ -16,6 +16,7 @@ object RetrofitCreator {
         encodeDefaults = true
     }
 
+
     @ExperimentalSerializationApi
     inline fun <reified T> getRetrofit(baseUrl: String = "https://api.openweathermap.org/data/2.5/"): T {
 

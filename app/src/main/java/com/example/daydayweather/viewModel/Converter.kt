@@ -11,16 +11,16 @@ class Converter {
 
     fun getIcon(codeOfIcon: String): Int {
         return when (codeOfIcon) {
-            "01n" -> (R.drawable.ic_delete_24)
-            "02n" -> (R.drawable.ic_down)
-            "03n" -> (R.drawable.ic_high)
-            "04n" -> (R.drawable.ic_launcher_background)
-            "09n" -> (R.drawable.ic_launcher_foreground)
-            "10n" -> (R.drawable.ic_sunset)
-            "11n" -> (R.drawable.ic_aaa)
-            "13n" -> (R.drawable.ic_aaa)
-            "50n" -> (R.drawable.ic_delete_24)
-            else -> (R.drawable.ic_aaa)
+            "01n" -> (R.drawable.ic_sun_fill)//clear sky
+            "02n" -> (R.drawable.ic_sun_cloudy)//few clouds
+            "03n" -> (R.drawable.ic_cloud_line)//scattered clouds
+            "04n" -> (R.drawable.ic_rainy_line)//broken clouds
+            "09n" -> (R.drawable.ic_broken_clouds)//rain
+            "10n" -> (R.drawable.ic_shower_rain)//shower rain
+            "11n" -> (R.drawable.ic_thunderstorms_line)//thunderstorm
+            "13n" -> (R.drawable.ic_snowy_line)//snow
+            "50n" -> (R.drawable.ic_mist_fill)//mist
+            else -> (R.drawable.ic_moon_clear_line)
         }
     }
 
