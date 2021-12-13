@@ -6,14 +6,14 @@ import androidx.room.*
 @Dao
 interface PlacesDAO {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(placeEntity: PlacesEntity)
+     fun insert(placeEntity: PlacesEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdate(placeEntity: PlacesEntity)
+     fun insertOrUpdate(placeEntity: PlacesEntity)
 
     @Delete
-    fun delete(placeEntity: PlacesEntity)
+     fun delete(placeEntity: PlacesEntity)
 
     @Query("SELECT * FROM placesEntity ")
-    fun getAllPlaces(): LiveData<List<PlacesEntity>>
+     fun getAllPlaces(): LiveData<List<PlacesEntity>>
 }

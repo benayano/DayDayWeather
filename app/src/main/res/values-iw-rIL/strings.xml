@@ -6,10 +6,19 @@
     <string name="Humidity">לחות:</string>
     <string name="Pressure">לחץ:</string>
     <string name="Cloudy">מעונן:</string>
-    <string name="language">שפה</string>
+    <string name="language">he</string>
     <string name="windSpeed">קמ"ש הרוח:</string>
     <string name="visibility">ראות:</string>
     <string name="TimeAndDat">בתאריך:</string>
     <string name="description">תיאור</string>
     <string name="time">שעה:</string>
+    <string-array name ="days_of_week">
+        <item>ראשון</item>
+        <item>שני</item>
+        <item>שלישי</item>
+        <item>רביעי</item>
+        <item>חמישי</item>
+        <item>שישי</item>
+        <item>שבת</item>
+    </string-array>
 </resources>

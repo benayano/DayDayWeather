@@ -4,7 +4,7 @@
     <string name="Humidity">humidity</string>
     <string name="Pressure">Pressure</string>
     <string name="Cloudy">Cloudy</string>
-    <string name="language">language</string>
+    <string name="language">en</string>
     <string name="windSpeed">Wind Speed</string>
     <string name="visibility">visibility</string>
     <string name="TimeAndDat">Date</string>

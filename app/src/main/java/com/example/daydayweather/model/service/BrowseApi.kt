@@ -57,7 +57,6 @@ interface BrowseApi {
         @Query(LANGUAGE) language: String =languageOfDevice
     ): CurrentTimeResponse
 
-    ///{city name}&{API key}suspend
     @GET("weather")
     suspend fun getCurrentByCityName(
         @Query(CITY_NAME) cityName: String,

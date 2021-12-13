@@ -17,8 +17,7 @@ object RetrofitCreator {
     }
 
 
-    @ExperimentalSerializationApi
-    inline fun <reified T> getRetrofit(baseUrl: String = "https://api.openweathermap.org/data/2.5/"): T {
+    inline fun <reified T> getRetrofit(baseUrl: String): T {
 
         val client = OkHttpClient.Builder().apply {
             addInterceptor(HttpLoggingInterceptor().apply {

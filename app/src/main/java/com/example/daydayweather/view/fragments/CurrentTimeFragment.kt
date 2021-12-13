@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,7 +27,13 @@ class CurrentTimeFragment : Fragment(R.layout.fragment_current_time) {
         val lastCityChose =
             LastCityChose(PreferenceManager.getDefaultSharedPreferences(this.requireContext()))
 
-        WeatherFactory(WeatherRepository, PlacesRepository(placesDao), lastCityChose)
+        WeatherFactory(
+            WeatherRepository,
+            PlacesRepository(placesDao),
+            lastCityChose,
+            language = getString(R.string.language),
+            dayOfTheWeek = resources.getStringArray(R.array.days_of_week)
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,11 +57,12 @@ class CurrentTimeFragment : Fragment(R.layout.fragment_current_time) {
 
         viewModel.loadLastCity()
 
-        viewModel.getLastCity().observe(viewLifecycleOwner,{
+        viewModel.getLastCity().observe(viewLifecycleOwner, {
             selectedLocation(it)
         })
 
     }
+
     private fun selectedLocation(locationData: LocationData) {
         viewModel.updateAllForecast(locationData)
         (activity as AppCompatActivity).supportActionBar?.title = locationData.name

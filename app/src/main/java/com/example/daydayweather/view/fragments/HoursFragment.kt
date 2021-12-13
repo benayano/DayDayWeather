@@ -28,7 +28,13 @@ class HoursFragment : Fragment(R.layout.fragment_hours) {
         val lastCityChose =
             LastCityChose(PreferenceManager.getDefaultSharedPreferences(this.requireContext()))
 
-        WeatherFactory(WeatherRepository, PlacesRepository(placesDao), lastCityChose)
+        WeatherFactory(
+            WeatherRepository,
+            PlacesRepository(placesDao),
+            lastCityChose,
+            language = getString(R.string.language),
+            dayOfTheWeek = resources.getStringArray(R.array.days_of_week)
+        )
     }
 
 

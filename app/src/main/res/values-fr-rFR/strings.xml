@@ -6,10 +6,19 @@
     <string name="Humidity">humidité</string>
     <string name="Pressure">Pression</string>
     <string name="Cloudy">nuageux</string>
-    <string name="language">language</string>
+    <string name="language">fr</string>
     <string name="windSpeed">Vitesse du vent</string>
     <string name="visibility">visibilité</string>
     <string name="TimeAndDat">Date</string>
     <string name="description">Description</string>
     <string name="time">Heure</string>
+    <string-array name ="days_of_week">
+        <item>Dimanche</item>
+        <item>Lundi</item>
+        <item>Mardi</item>
+        <item>Mercredi</item>
+        <item>Jeudi</item>
+        <item>Vendredi</item>
+        <item>Samedi</item>
+    </string-array>
 </resources>

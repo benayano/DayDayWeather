@@ -9,6 +9,8 @@
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_delete_24.xml" value="0.1515625" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_down.xml" value="0.1515625" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_drizzle_line.xml" value="0.1515625" />
+        <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_focus.xml" value="0.264" />
+        <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_focus_3_line.xml" value="0.26614583333333336" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_rainy_line.xml" value="0.1515625" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_snowy_line.xml" value="0.14322916666666666" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/drawable/ic_sun_fill.xml" value="0.1515625" />
@@ -19,7 +21,7 @@
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/fragment_current_time.xml" value="0.2" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/fragment_days.xml" value="0.25416666666666665" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/fragment_hours.xml" value="0.25416666666666665" />
-        <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/fragment_location.xml" value="0.1" />
+        <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/fragment_location.xml" value="0.264" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/fragment_view_pager.xml" value="0.1984375" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/layout/hour.xml" value="0.25416666666666665" />
         <entry key="..\:/myProgramingB/DayDayWeather/app/src/main/res/menu/map_options.xml" value="0.1984375" />

@@ -7,7 +7,7 @@ data class CurrentTimeResponse(
     // val id:Int,
     //  val base: String,
     val clouds: Clouds = Clouds(0),
-    val cod: Int = -1,
+    val code: Int = -1,
     val coord: Coord = Coord(),
     //   val dt: Int,
     val main: Main,

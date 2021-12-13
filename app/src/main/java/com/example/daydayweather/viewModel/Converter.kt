@@ -1,6 +1,5 @@
 package com.example.daydayweather.viewModel
 
-import com.example.daydayweather.R
 import com.example.daydayweather.model.db.PlacesEntity
 import com.example.daydayweather.model.response.CurrentTimeResponse
 import com.example.daydayweather.model.response.DaysResponse7
@@ -49,11 +48,9 @@ class Converter {
         return hoursList
     }
 
-    fun allDays(daysResponse7: DaysResponse7): List<DayData> {
+    fun allDays(daysResponse7: DaysResponse7,dayOfTheWeek:Array<String>): List<DayData> {
         val myDays = mutableListOf<DayData>()
         val thisDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-        val dayOfTheWeek =
-            listOf<String>("ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת")
 
         daysResponse7.daily.forEachIndexed { index, daily ->
             val day = DayData(
@@ -72,7 +69,7 @@ class Converter {
         return entityList.mapNotNull { placesEntity ->
             placesEntity.takeIf { it.id != null }?.let {
                 LocationData(
-                    sirialNumber = it.id!!,
+                    serialNumber = it.id!!,
                     name = it.name,
                     country = loveIsrael(it.country),
                     longitude = it.longitude,
@@ -88,7 +85,7 @@ class Converter {
     }
 
     suspend fun locationDataToPlaceEntity(locationData: LocationData) = PlacesEntity(
-        id = locationData.sirialNumber,
+        id = locationData.serialNumber,
         name = locationData.name,
         country = locationData.country,
         longitude = locationData.longitude,

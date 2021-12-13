@@ -26,7 +26,13 @@ class DaysFragment : Fragment(R.layout.fragment_days) {
         val lastCityChose =
             LastCityChose(PreferenceManager.getDefaultSharedPreferences(this.requireContext()))
 
-        WeatherFactory(WeatherRepository, PlacesRepository(placesDao), lastCityChose)
+        WeatherFactory(
+            WeatherRepository,
+            PlacesRepository(placesDao),
+            lastCityChose,
+            language = getString(R.string.language),
+            dayOfTheWeek = resources.getStringArray(R.array.days_of_week)
+        )
     }
 
     private val rvDays: RecyclerView by lazy { requireView().findViewById(R.id.rvDays) }
@@ -47,7 +53,7 @@ class DaysFragment : Fragment(R.layout.fragment_days) {
         })
 
         mainViewModel.getLastCity().observe(viewLifecycleOwner, {
-            mainViewModel.loadDays(it)
+            mainViewModel.loadDays(longitude = it.longitude, latitude = it.latitude)
 
         })
 
