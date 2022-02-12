@@ -8,7 +8,7 @@ data class CurrentTimeResponse(
     //  val base: String,
     val clouds: Clouds = Clouds(0),
     val code: Int = -1,
-    val coord: Coord = Coord(),
+    val coord: Coord,
     //   val dt: Int,
     val main: Main,
     val name: String = "ירושלים default place",

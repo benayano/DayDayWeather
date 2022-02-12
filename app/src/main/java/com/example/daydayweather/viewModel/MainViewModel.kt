@@ -11,8 +11,8 @@ class MainViewModel(
     private val weatherRepository: WeatherRepository,
     private val placesRepository: PlacesRepository,
     private val lastCityChose: LastCityChose,
-    private val language:String,
-    private val dayOfTheWeek:Array<String> = arrayOf<String>("1","2","3","4","5","6","7")
+    private val language: String,
+    private val dayOfTheWeek: Array<String> = arrayOf<String>("1", "2", "3", "4", "5", "6", "7")
 
 ) : ViewModel() {
 
@@ -47,7 +47,7 @@ class MainViewModel(
                 language = language
             )
             val currentData = converter.currentResponseToData(currentResponse)
-            currentTime.postValue( currentData)
+            currentTime.postValue(currentData)
         }
     }
 
@@ -97,6 +97,24 @@ class MainViewModel(
             placesRepository.deletePlace(converter.locationDataToPlaceEntity(locationData))
         }
 
+    fun getLocationByCoordinates(longitude: Double, latitude: Double) {
+        viewModelScope.launch {
+           val thisLocation = weatherRepository.getCurrentWeatherByCoordinates(
+                locationLat = latitude,
+                locationLon = longitude,
+                language = language
+            )
+            val locationsData=LocationData(
+                name = thisLocation.name,
+                country = thisLocation.sys.country,
+                latitude = thisLocation.coord.lat,
+                longitude = thisLocation.coord.lon,
+            )
+            addLocation(locationsData)
+        }
+    }
+
+
     fun addLocation(locationName: String) =
         viewModelScope.launch {
             val forecast = weatherRepository.getCurrentWeatherByCity(locationName)
@@ -123,7 +141,7 @@ class MainViewModel(
     }
 
     fun updateAllForecast(locationData: LocationData) {
-        updateAllForecast(locationData.longitude,locationData.latitude)
+        updateAllForecast(locationData.longitude, locationData.latitude)
     }
 
     //------------------------------locationData----------------------------------------

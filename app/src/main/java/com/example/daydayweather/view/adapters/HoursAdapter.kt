@@ -1,5 +1,6 @@
 package com.example.daydayweather.view.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,13 +32,27 @@ class HoursAdapter(
         private val hourTime: TextView = itemView.findViewById(R.id.tvHour)
         private val hourDegrees: TextView = itemView.findViewById(R.id.tvDegrees)
         fun bind(threeHourData: ThreeHourData) {
-            hourTime.text = threeHourData.time.toString() + ":00"
-            hourDegrees.text = "${"%.1f".format(threeHourData.degrees - 273.3)}°"
-            hourImageView.setImageResource(SetImages.getIcon(threeHourData.Image))
+            when {
+                threeHourData.Image.contains("d") -> {
+                    itemView.setBackgroundColor(R.color.purple_200)
+                }
+                threeHourData.Image.contains("m") -> {
+                    itemView.setBackgroundColor(0xFF00FF00.toInt())
 
-            hourImageView.setOnClickListener {
-                hourClicked(threeHourData)
+                }
+                else -> {
+                    itemView.setBackgroundColor(0xFF00FF10.toInt())
+                }
             }
+                hourTime.text = threeHourData.time.toString() + ":00"
+                hourDegrees.text = "${"%.1f".format(threeHourData.degrees - 273.3)}°"
+                hourImageView.setImageResource(SetImages.getIcon(threeHourData.Image))
+                hourImageView.setOnClickListener {
+                    hourClicked(threeHourData)
+                }
+
+
+
         }
     }
 

@@ -8,13 +8,14 @@ import java.util.*
 
 class Converter {
 
-    fun currentResponseToLocationData(currentTimeResponse: CurrentTimeResponse):LocationData=
+    fun currentResponseToLocationData(currentTimeResponse: CurrentTimeResponse): LocationData =
         LocationData(
             name = currentTimeResponse.name,
             country = loveIsrael(currentTimeResponse.sys.country),
             latitude = currentTimeResponse.coord.lat,
             longitude = currentTimeResponse.coord.lon
         )
+
     fun currentResponseToData(currentTimeResponse: CurrentTimeResponse): CurrentTimeData {
         return CurrentTimeData(
             currentTemperature = currentTimeResponse.main.temp - absoluteZero,
@@ -48,7 +49,7 @@ class Converter {
         return hoursList
     }
 
-    fun allDays(daysResponse7: DaysResponse7,dayOfTheWeek:Array<String>): List<DayData> {
+    fun allDays(daysResponse7: DaysResponse7, dayOfTheWeek: Array<String>): List<DayData> {
         val myDays = mutableListOf<DayData>()
         val thisDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
 

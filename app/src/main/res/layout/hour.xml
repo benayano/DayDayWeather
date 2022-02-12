@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_sunset"
+        tools:src="@drawable/ic_sunset"
         tools:ignore="VectorDrawableCompat" />
 
     <TextView
@@ -22,20 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="18"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivSunset"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivSunset" />
+        app:layout_constraintTop_toTopOf="@+id/ivSunset"
+        tools:text="18"/>
 
     <TextView
         android:id="@+id/tvHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="12:30"
+        tools:text="12:30"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivSunset"
         app:layout_constraintStart_toStartOf="parent"
