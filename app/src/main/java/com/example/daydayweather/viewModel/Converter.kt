@@ -15,6 +15,13 @@ class Converter {
             latitude = currentTimeResponse.coord.lat,
             longitude = currentTimeResponse.coord.lon
         )
+    fun currentResponseToLocationData(currentTimeResponse: CurrentTimeResponse,specificName:String): LocationData =
+        LocationData(
+            name = specificName,
+            country = loveIsrael(currentTimeResponse.sys.country),
+            latitude = currentTimeResponse.coord.lat,
+            longitude = currentTimeResponse.coord.lon
+        )
 
     fun currentResponseToData(currentTimeResponse: CurrentTimeResponse): CurrentTimeData {
         return CurrentTimeData(

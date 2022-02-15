@@ -93,10 +93,9 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
         }
 
         addButton.setOnClickListener {
-
-            val name = formatLocation(editText.text.toString())
-            if (name.isNotEmpty()) {
-                viewModel.addLocation(name)
+            if (formatLocation(editText.text.toString()).isNotEmpty()){
+               addLocation(formatLocation(editText.text.toString()))
+                editText.text.clear()
             } else {
                 Toast.makeText(requireContext(), "pleas enter valid City", Toast.LENGTH_SHORT)
                     .show()
@@ -133,22 +132,22 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
     @SuppressLint("MissingPermission")
     private fun useLocation() {
         val task: Task<Location> = fusedLocationProviderClient.lastLocation
-        if (task.isSuccessful){
+        if (task.isSuccessful) {
             task.addOnSuccessListener {
-               viewModel.getLocationByCoordinates(
-                        longitude = it.longitude,
-                        latitude = it.latitude
-                    ).also {
-                        makeToast("We can find your location\uD83D\uDE01\uD83D\uDE01\uD83D\uDE01")
-                    }
+                viewModel.getLocationByCoordinates(
+                    longitude = it.longitude,
+                    latitude = it.latitude
+                ).also {
+                    makeToast("We can find your location\uD83D\uDE01\uD83D\uDE01\uD83D\uDE01")
+                }
 
             }
-        }else
+        } else
             makeToast("We can't find your location")
 
     }
 
-    private fun makeToast(str:String)= Toast.makeText(
+    private fun makeToast(str: String) = Toast.makeText(
         requireContext(),
         str,
         Toast.LENGTH_SHORT
@@ -169,6 +168,9 @@ class LocationFragment : Fragment(R.layout.fragment_location) {
         viewModel.updateAllForecast(locationData)
         Toast.makeText(requireContext(), " $selectedName is selected", Toast.LENGTH_SHORT).show()
         (activity as AppCompatActivity).supportActionBar?.title = selectedName
+    }
+    private fun addLocation(cityName:String){
+        viewModel.addLocationToDB(cityName)
     }
 
     private fun deleteLocationItem(locationData: LocationData) =

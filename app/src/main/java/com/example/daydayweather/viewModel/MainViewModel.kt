@@ -35,6 +35,10 @@ class MainViewModel(
         .getAllPlaces()
         .map { converter.entityListToLocationList(it) }
 
+    private val appTitle: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
     private val converter = Converter()
 
     //--------------------------current Time ----------------------------------
@@ -87,7 +91,7 @@ class MainViewModel(
 
     fun getLocations(): LiveData<List<LocationData>> = locationsLiveData
 
-    private fun addLocation(locationData: LocationData) =
+    private fun addLocationToDB(locationData: LocationData) =
         viewModelScope.launch {
             placesRepository.addPlace(converter.locationDataToPlaceEntity(locationData))
         }
@@ -99,40 +103,47 @@ class MainViewModel(
 
     fun getLocationByCoordinates(longitude: Double, latitude: Double) {
         viewModelScope.launch {
-           val thisLocation = weatherRepository.getCurrentWeatherByCoordinates(
+            val thisLocation = weatherRepository.getCurrentWeatherByCoordinates(
                 locationLat = latitude,
                 locationLon = longitude,
                 language = language
             )
-            val locationsData=LocationData(
+            val locationsData = LocationData(
                 name = thisLocation.name,
                 country = thisLocation.sys.country,
                 latitude = thisLocation.coord.lat,
                 longitude = thisLocation.coord.lon,
             )
-            addLocation(locationsData)
+            addLocationToDB(locationsData)
         }
     }
 
 
-    fun addLocation(locationName: String) =
+    fun addLocationToDB(locationName: String) =
         viewModelScope.launch {
-            val forecast = weatherRepository.getCurrentWeatherByCity(locationName)
-            if (forecast.code == 200) {
-                addLocation(
-                    converter.currentResponseToLocationData(
-                        forecast
+            try {
+                val forecast = weatherRepository.getCurrentWeatherByCity(locationName)
+                    addLocationToDB(
+                        converter.currentResponseToLocationData(
+                            forecast,locationName
+                        )
                     )
-                )
+                    updateAllForecast(longitude = forecast.coord.lon, latitude = forecast.coord.lat)
+                    appTitle.postValue(locationName)
+
+            } catch (e: Exception) {
+
             }
         }
+
+    fun getAppTitle():LiveData<String> = appTitle
 
     fun replaceLocation(locationData: LocationData) =
         viewModelScope.launch {
             placesRepository.addPlaceOrUpdate(converter.locationDataToPlaceEntity(locationData))
         }
 
-    fun updateAllForecast(longitude: Double, latitude: Double) {
+    private fun updateAllForecast(longitude: Double, latitude: Double) {
         viewModelScope.launch {
             loadCurrentWeather(longitude = longitude, latitude = latitude)
             loadDays(longitude = longitude, latitude = latitude)
